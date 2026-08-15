@@ -1,69 +1,50 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import './page.css';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="demolar-page">
+      <div className="demolar-shell">
+        <p className="demolar-eyebrow">AVM Deneyim Paketi</p>
+        <h1 className="demolar-title">Demolar</h1>
+        <p className="demolar-subtitle">İncelemek istediğiniz deneyimi seçin.</p>
+
+        <nav className="demolar-grid" aria-label="Demo seçimi">
+          <Link href="/tur" className="demolar-card demolar-card--tur">
+            <span className="demolar-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <ellipse cx="24" cy="24" rx="19" ry="8.5" stroke="currentColor" strokeWidth="2.5"/>
+                <circle cx="24" cy="24" r="19" stroke="currentColor" strokeWidth="2.5"/>
+                <path d="M24 5 C31 5 36 13.6 36 24 C36 34.4 31 43 24 43 C17 43 12 34.4 12 24 C12 13.6 17 5 24 5Z" stroke="currentColor" strokeWidth="2.5"/>
+                <path d="M39 15 L44 13.5 L42.8 18.7" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </span>
+            <span className="demolar-card-body">
+              <span className="demolar-card-kicker">Deneyim 01</span>
+              <span className="demolar-card-title">360° Panoramik Tur</span>
+              <span className="demolar-card-desc">AVM'yi adım adım gezin, her köşeyi 360° keşfedin.</span>
+            </span>
+            <span className="demolar-card-arrow" aria-hidden="true">&#8594;</span>
+          </Link>
+
+          <Link href="/harita" className="demolar-card demolar-card--harita">
+            <span className="demolar-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none">
+                <path d="M6 13 L18 8 L30 13 L42 8 V35 L30 40 L18 35 L6 40 Z" stroke="currentColor" strokeWidth="2.5" strokeLinejoin="round"/>
+                <path d="M18 8 V35" stroke="currentColor" strokeWidth="2.5"/>
+                <path d="M30 13 V40" stroke="currentColor" strokeWidth="2.5"/>
+                <circle cx="24" cy="22" r="3.2" fill="currentColor"/>
+              </svg>
+            </span>
+            <span className="demolar-card-body">
+              <span className="demolar-card-kicker">Deneyim 02</span>
+              <span className="demolar-card-title">İnteraktif Kat Planı</span>
+              <span className="demolar-card-desc">Kat kat mağazaları filtreleyin, konumlarını anında bulun.</span>
+            </span>
+            <span className="demolar-card-arrow" aria-hidden="true">&#8594;</span>
+          </Link>
+        </nav>
+      </div>
     </div>
   );
 }

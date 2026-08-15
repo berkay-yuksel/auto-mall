@@ -1,0 +1,148 @@
+.demolar-page{
+  --dl-ink:#0B1F3A;
+  --dl-ink-soft:#5B6B85;
+  --dl-bg:#F4F6FA;
+  --dl-card:#FFFFFF;
+  --dl-line:#E1E6EF;
+  --dl-tur:#FF5A36;
+  --dl-tur-soft:#FFE4DB;
+  --dl-harita:#1E9E90;
+  --dl-harita-soft:#DFF3F0;
+
+  min-height:100dvh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--dl-bg);
+  color:var(--dl-ink);
+  font-family:'Inter',system-ui,sans-serif;
+  padding:32px 20px;
+  box-sizing:border-box;
+}
+.demolar-page *{box-sizing:border-box;}
+
+.demolar-shell{
+  width:100%;
+  max-width:860px;
+  text-align:center;
+}
+
+.demolar-eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--dl-ink-soft);
+  margin:0 0 14px;
+}
+
+.demolar-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:clamp(40px,7vw,64px);
+  letter-spacing:-.02em;
+  margin:0 0 12px;
+}
+
+.demolar-subtitle{
+  font-size:16px;
+  color:var(--dl-ink-soft);
+  margin:0 0 44px;
+}
+
+.demolar-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  text-align:left;
+}
+
+@media (max-width:640px){
+  .demolar-grid{grid-template-columns:1fr;}
+}
+
+.demolar-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  background:var(--dl-card);
+  border:1px solid var(--dl-line);
+  border-radius:18px;
+  padding:28px 24px 26px;
+  text-decoration:none;
+  color:var(--dl-ink);
+  box-shadow:0 1px 2px rgba(11,31,58,.04);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.demolar-card:hover,
+.demolar-card:focus-visible{
+  transform:translateY(-3px);
+  box-shadow:0 16px 32px rgba(11,31,58,.10);
+}
+
+.demolar-card:focus-visible{
+  outline:2px solid var(--dl-ink);
+  outline-offset:3px;
+}
+
+.demolar-card-icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.demolar-card-icon svg{width:28px; height:28px;}
+
+.demolar-card--tur .demolar-card-icon{background:var(--dl-tur-soft); color:var(--dl-tur);}
+.demolar-card--harita .demolar-card-icon{background:var(--dl-harita-soft); color:var(--dl-harita);}
+
+.demolar-card-body{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.demolar-card-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--dl-ink-soft);
+}
+
+.demolar-card-title{
+  font-family:'Space Grotesk',sans-serif;
+  font-weight:700;
+  font-size:21px;
+  letter-spacing:-.01em;
+}
+
+.demolar-card-desc{
+  font-size:14px;
+  line-height:1.5;
+  color:var(--dl-ink-soft);
+}
+
+.demolar-card-arrow{
+  position:absolute;
+  top:26px;
+  right:24px;
+  font-size:18px;
+  color:var(--dl-ink-soft);
+  transition:transform .18s ease, color .18s ease;
+}
+
+.demolar-card:hover .demolar-card-arrow,
+.demolar-card:focus-visible .demolar-card-arrow{
+  transform:translateX(3px);
+  color:var(--dl-ink);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .demolar-card{transition:none;}
+  .demolar-card:hover{transform:none;}
+}

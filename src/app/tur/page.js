@@ -332,6 +332,7 @@ export default function TourPage() {
 
   return (
     <main className="tour">
+      
       <div
         ref={viewerRef}
         className="viewer"
