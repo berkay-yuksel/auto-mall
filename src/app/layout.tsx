@@ -19,7 +19,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+           <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.css"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
