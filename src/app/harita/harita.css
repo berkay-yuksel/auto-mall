@@ -28,7 +28,7 @@
     color:var(--ink-soft);
   }
   header.top{
-    position:sticky; top:0; z-index:30;
+    position:static; top:0; z-index:30;
     background:rgba(244,246,250,.94);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
