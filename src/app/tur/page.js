@@ -37,7 +37,7 @@ const scenes = {
         label: "Koridor 1",
         color: "green",
       },
-        {
+      {
         pitch: -10,
         yaw: -75,
         sceneId: "room2",
@@ -51,7 +51,6 @@ const scenes = {
         label: "Oda 3",
         color: "blue",
       },
-  
       {
         pitch: -10,
         yaw: 80,
@@ -127,10 +126,46 @@ export default function TourPage() {
   const viewerRef = useRef(null);
   const viewerInstance = useRef(null);
   const scriptRef = useRef(null);
+  const preloadedRef = useRef(new Set());
 
-  const [currentScene, setCurrentScene] =
-    useState("corridor1");
+  const [currentScene, setCurrentScene] = useState("corridor1");
 
+  // ---- Panoramaları arka planda preload et ----
+  useEffect(() => {
+    let cancelled = false;
+
+    const preloadImages = () => {
+      Object.entries(scenes).forEach(([sceneId, scene]) => {
+        if (cancelled) return;
+        if (preloadedRef.current.has(sceneId)) return;
+
+        const img = new Image();
+
+        img.onload = () => {
+          preloadedRef.current.add(sceneId);
+        };
+
+        img.onerror = () => {
+          console.warn(
+            `Preload başarısız: ${scene.panorama}`
+          );
+        };
+
+        img.src = scene.panorama;
+      });
+    };
+
+    // İlk sahne yüklendikten kısa süre sonra başlat,
+    // ilk render ile network trafiği yarışmasın
+    const timer = setTimeout(preloadImages, 1200);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, []);
+
+  // ---- Pannellum viewer kurulumu ----
   useEffect(() => {
     let cancelled = false;
 
@@ -159,8 +194,7 @@ export default function TourPage() {
 
       const circle = document.createElement("div");
 
-      circle.className =
-        `hotspot-circle hotspot-${args.color}`;
+      circle.className = `hotspot-circle hotspot-${args.color}`;
 
       const label = document.createElement("div");
 
@@ -187,68 +221,56 @@ export default function TourPage() {
 
       const pannellumScenes = {};
 
-      Object.entries(scenes).forEach(
-        ([sceneId, scene]) => {
-          pannellumScenes[sceneId] = {
-            title: scene.title,
+      Object.entries(scenes).forEach(([sceneId, scene]) => {
+        pannellumScenes[sceneId] = {
+          title: scene.title,
 
-            type: "equirectangular",
+          type: "equirectangular",
 
-            panorama: scene.panorama,
+          panorama: scene.panorama,
 
-            hotSpots: scene.hotSpots.map(
-              (hotSpot) => ({
-                pitch: hotSpot.pitch,
+          hotSpots: scene.hotSpots.map((hotSpot) => ({
+            pitch: hotSpot.pitch,
 
-                yaw: hotSpot.yaw,
+            yaw: hotSpot.yaw,
 
-                type: "scene",
+            type: "scene",
 
-                sceneId: hotSpot.sceneId,
+            sceneId: hotSpot.sceneId,
 
-                createTooltipFunc:
-                  createHotspot,
+            createTooltipFunc: createHotspot,
 
-                createTooltipArgs: {
-                  label: hotSpot.label,
-                  color: hotSpot.color,
-                },
-              })
-            ),
-          };
-        }
-      );
-
-      const viewer =
-        window.pannellum.viewer(
-          container,
-          {
-            default: {
-              firstScene: "corridor1",
-
-              sceneFadeDuration: 800,
+            createTooltipArgs: {
+              label: hotSpot.label,
+              color: hotSpot.color,
             },
+          })),
+        };
+      });
 
-            autoLoad: true,
+      const viewer = window.pannellum.viewer(container, {
+        default: {
+          firstScene: "corridor1",
 
-            showControls: true,
+          sceneFadeDuration: 800,
+        },
 
-            compass: false,
+        autoLoad: true,
 
-            hfov: 90,
+        showControls: true,
 
-            scenes: pannellumScenes,
-          }
-        );
+        compass: false,
+
+        hfov: 90,
+
+        scenes: pannellumScenes,
+      });
 
       viewerInstance.current = viewer;
 
-      viewer.on(
-        "scenechange",
-        (sceneId) => {
-          setCurrentScene(sceneId);
-        }
-      );
+      viewer.on("scenechange", (sceneId) => {
+        setCurrentScene(sceneId);
+      });
     };
 
     if (window.pannellum) {
@@ -271,8 +293,7 @@ export default function TourPage() {
       };
     }
 
-    const script =
-      document.createElement("script");
+    const script = document.createElement("script");
 
     script.src =
       "https://cdn.jsdelivr.net/npm/pannellum@2.5.7/build/pannellum.js";
@@ -286,9 +307,7 @@ export default function TourPage() {
     };
 
     script.onerror = () => {
-      console.error(
-        "Pannellum script yüklenemedi."
-      );
+      console.error("Pannellum script yüklenemedi.");
     };
 
     scriptRef.current = script;
@@ -325,52 +344,34 @@ export default function TourPage() {
       return;
     }
 
-    viewerInstance.current.loadScene(
-      sceneId
-    );
+    viewerInstance.current.loadScene(sceneId);
   };
 
   return (
     <main className="tour">
-      
-      <div
-        ref={viewerRef}
-        className="viewer"
-      />
+      <div ref={viewerRef} className="viewer" />
 
       <div className="bottom-panel">
         <div className="current-location">
           <span className="location-dot" />
 
-          <span>
-            {current.title}
-          </span>
+          <span>{current.title}</span>
         </div>
 
         <div className="destinations">
-          {current.hotSpots.map(
-            (hotSpot) => (
-              <button
-                key={hotSpot.sceneId}
-                className="destination"
-                onClick={() =>
-                  goToScene(
-                    hotSpot.sceneId
-                  )
-                }
-              >
-                <span
-                  className={
-                    `destination-color ${hotSpot.color}`
-                  }
-                />
+          {current.hotSpots.map((hotSpot) => (
+            <button
+              key={hotSpot.sceneId}
+              className="destination"
+              onClick={() => goToScene(hotSpot.sceneId)}
+            >
+              <span
+                className={`destination-color ${hotSpot.color}`}
+              />
 
-                <span>
-                  {hotSpot.label}
-                </span>
-              </button>
-            )
-          )}
+              <span>{hotSpot.label}</span>
+            </button>
+          ))}
         </div>
       </div>
     </main>
