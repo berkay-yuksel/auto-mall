@@ -129,6 +129,7 @@ export default function TourPage() {
   const preloadedRef = useRef(new Set());
 
   const [currentScene, setCurrentScene] = useState("corridor1");
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   // ---- Panoramaları arka planda preload et ----
   useEffect(() => {
@@ -270,6 +271,7 @@ export default function TourPage() {
 
       viewer.on("scenechange", (sceneId) => {
         setCurrentScene(sceneId);
+        setIsTransitioning(false);
       });
     };
 
@@ -344,12 +346,18 @@ export default function TourPage() {
       return;
     }
 
+    setIsTransitioning(true);
+
     viewerInstance.current.loadScene(sceneId);
   };
 
   return (
     <main className="tour">
       <div ref={viewerRef} className="viewer" />
+
+      {isTransitioning && (
+        <div className="custom-transition-overlay" />
+      )}
 
       <div className="bottom-panel">
         <div className="current-location">
