@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const scenes = {
   corridor1: {
     title: "Koridor 1",
-    panorama: "/panoramas/corridor-1.jpg",
+    panorama: "/panoramas/corridor-1.webp",
 
     hotSpots: [
       {
@@ -27,7 +27,7 @@ const scenes = {
 
   corridor2: {
     title: "Koridor 2",
-    panorama: "/panoramas/corridor-2.jpg",
+    panorama: "/panoramas/corridor-2.webp",
 
     hotSpots: [
       {
@@ -64,7 +64,7 @@ const scenes = {
 
   room1: {
     title: "Oda 1",
-    panorama: "/panoramas/room-1.jpg",
+    panorama: "/panoramas/room-1.webp",
 
     hotSpots: [
       {
@@ -79,7 +79,7 @@ const scenes = {
 
   room2: {
     title: "Oda 2",
-    panorama: "/panoramas/room-2.jpg",
+    panorama: "/panoramas/room-2.webp",
 
     hotSpots: [
       {
@@ -94,7 +94,7 @@ const scenes = {
 
   room3: {
     title: "Oda 3",
-    panorama: "/panoramas/room-3.jpg",
+    panorama: "/panoramas/room-3.webp",
 
     hotSpots: [
       {
@@ -109,7 +109,7 @@ const scenes = {
 
   room4: {
     title: "Oda 4",
-    panorama: "/panoramas/room-4.jpg",
+    panorama: "/panoramas/room-4.webp",
 
     hotSpots: [
       {
