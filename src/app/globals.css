@@ -273,17 +273,3 @@
   }
 }
 
-.pnlm-load-box {
-  display: none !important;
-}
-.custom-transition-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999; 
-  pointer-events: none;
-}
